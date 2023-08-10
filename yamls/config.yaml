@@ -1,0 +1,14 @@
+defaults:
+  - _self_
+  - check: "000"
+  - override hydra/job_logging: none  # hydraで自動的にログファイルが生成されるのを防ぐ
+
+
+
+hydra:
+  # hydraで自動的にログファイルが生成されるのを防ぐ
+  output_subdir: null
+  job:
+    chdir: False
+  run:
+    dir: .
