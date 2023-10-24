@@ -1,8 +1,6 @@
 version: "3"
 services:
   kaggle:
-    environment:
-      - WEBHOOK_URL=${WEBHOOK_URL}
     build: .
     volumes:
       - $PWD:/tmp/working

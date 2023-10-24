@@ -1,6 +1,4 @@
 from .data import *
-from .notify import *
-
 
 import time
 from contextlib import contextmanager

@@ -2,11 +2,7 @@
 
 ## How to use
 
-### 準備
-
-- WEBHOOK_URL 環境変数にセットしておくこと
-
-### 実行
+### Docker
 
 ```sh
 docker compose biuld
