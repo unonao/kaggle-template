@@ -1,8 +1,8 @@
 defaults:
   - _self_
-  - check: "000"
+  - dir: local
+  - exp: check/base # 実行時に書き換える
   - override hydra/job_logging: none  # hydraで自動的にログファイルが生成されるのを防ぐ
-
 
 
 hydra:
@@ -12,3 +12,5 @@ hydra:
     chdir: False
   run:
     dir: .
+  searchpath:
+      - file:// # 親ディレクトリからの相対パスで exp を指定するために必要

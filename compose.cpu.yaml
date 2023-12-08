@@ -1,0 +1,44 @@
+version: "3"
+services:
+  kaggle-cpu:
+    container_name: 'kaggle-cpu'
+    build:
+      context: .
+      dockerfile: Dockerfile.cpu
+    volumes:
+      - $PWD:/kaggle/working
+      - ./.jupyter:/root/.jupyter # jupyterの設定
+    environment:
+      - JUPYTERLAB_SETTINGS_DIR=/kaggle/working/.jupyter-settings # jupyterの設定(保存用)
+    working_dir: /kaggle/working
+    ports:
+      - 8889:8889
+    command: jupyter lab --allow-root --ip=0.0.0.0 --port=8889 --no-browser --NotebookApp.token='' --config="./jupyter_lab_config.py"
+    shm_size: '2gb'  
+    tty: true
+    networks:
+      - mysql-network
+  db:
+    image: mysql:5.7
+    container_name: 'db'
+    expose:
+        - '3306'
+    ports:
+        - "3306:3306"
+    volumes:
+        # 初期データを投入するSQLが格納されているdir
+        - ./db/mysql_init:/docker-entrypoint-initdb.d
+        # 永続化するときにマウントするdir
+        - ./db/mysql_data:/var/lib/mysql
+    environment:
+        MYSQL_USER: test
+        MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+        MYSQL_DATABASE: optuna
+    networks:
+      - mysql-network
+
+
+networks:
+  mysql-network:
+    driver: bridge
+

@@ -3,9 +3,11 @@ services:
   kaggle:
     build: .
     volumes:
-      - $PWD:/tmp/working
-      - ./.py3/root_jupyter:/root/.jupyter # jupyterの設定
-    working_dir: /tmp/working
+      - $PWD:/kaggle/working
+      - ./.jupyter:/root/.jupyter
+    working_dir: /kaggle/working
+    environment:
+      - JUPYTERLAB_SETTINGS_DIR=/kaggle/working/.jupyter-settings # jupyterの設定(保存用)
     ports:
       - 8889:8889
     command: jupyter lab --allow-root --ip=0.0.0.0 --port=8889 --no-browser --NotebookApp.token=''
