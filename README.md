@@ -1,7 +1,7 @@
 # Kaggle テンプレート
 
 ## 特徴
-- Docker によるポータブルでKaggleと同一の環境
+- Docker によるポータブルなKaggleと同一の環境
 - Hydra による実験管理
     - パスなど各スクリプトに共通する設定を yamls/config.yaml で管理
     - 実験用スクリプトファイルの変更を major バージョンとしてフォルダごとに管理
