@@ -8,7 +8,7 @@ from omegaconf import DictConfig, OmegaConf
 import utils
 
 
-@hydra.main(version_base=None, config_path="../../yamls", config_name="config")
+@hydra.main(version_base=None, config_path=".", config_name="config")
 def my_app(cfg: DictConfig) -> None:
     runtime_choices = HydraConfig.get().runtime.choices
     exp_name = f"{runtime_choices.exp}"

@@ -40,11 +40,12 @@ docker compose up
 ## スクリプトの実行方法
 
 ```sh
-python exp/check/run.py exp=check/001
-python exp/check/run.py exp=check/base
+python experiments/check/run.py exp=001
+python experiments/check/run.py exp=base
 ```
 
 ### Hydra による Config 管理
 - 各スクリプトに共通する基本的な設定は yamls/config.yaml 内にある
-- 各スクリプトによって変わる設定は、実行スクリプトの近くに配置するために `exp/{major_exp_name}` フォルダの中に `{minor_exp_name}.yaml` として配置する
-    - 実行時に `exp={major_exp_name}/{minor_exp_name}.yaml` で上書きして
+- 各スクリプトによって変わる設定は、実行スクリプトのあるフォルダ(`{major_exp_name}`)の中に `exp/{minor_exp_name}.yaml` として配置することで管理。
+    - 実行時に `exp={minor_exp_name}` で上書きする
+    - `{major_exp_name}` と `{minor_exp_name}` の組み合わせで実験が再現できるようにする
