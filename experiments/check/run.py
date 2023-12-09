@@ -1,3 +1,4 @@
+import sys
 import time
 from pathlib import Path
 
@@ -11,7 +12,7 @@ import utils
 @hydra.main(version_base=None, config_path=".", config_name="config")
 def my_app(cfg: DictConfig) -> None:
     runtime_choices = HydraConfig.get().runtime.choices
-    exp_name = f"{runtime_choices.exp}"
+    exp_name = f"{Path(sys.argv[0]).parent.name}/{runtime_choices.exp}"
 
     print(f"exp_name: {exp_name}")
     ouput_path = Path(cfg.dir.output_dir) / exp_name
