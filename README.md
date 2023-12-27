@@ -27,7 +27,7 @@
 ## Docker による環境構築
 
 ```sh
-docker compose biuld
+docker compose build
 
 # bash に入る場合
 docker compose run --rm kaggle bash 
