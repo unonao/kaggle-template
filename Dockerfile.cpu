@@ -1,4 +1,4 @@
-FROM gcr.io/kaggle-images/python:v140
+FROM gcr.io/kaggle-images/python:v145
 
 RUN apt-get update  --allow-releaseinfo-change&& \
     apt-get -y install gcc libmariadb-dev

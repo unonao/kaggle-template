@@ -5,6 +5,7 @@ services:
     volumes:
       - $PWD:/kaggle/working
       - ./.jupyter:/root/.jupyter
+      - ./.cache:/root/.cache
     working_dir: /kaggle/working
     environment:
       - JUPYTERLAB_SETTINGS_DIR=/kaggle/working/.jupyter-settings # jupyterの設定(保存用)
@@ -18,3 +19,4 @@ services:
             - driver: nvidia
               count: 1
               capabilities: [ gpu ]
+    shm_size: '8gb'
