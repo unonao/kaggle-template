@@ -39,8 +39,8 @@ docker compose up
 ## スクリプトの実行方法
 
 ```sh
-python experiments/check/run.py exp=001
-python experiments/check/run.py exp=base
+python experiments/sample/run.py exp=001
+python experiments/sample/run.py exp=base
 ```
 
 ### Hydra による Config 管理
