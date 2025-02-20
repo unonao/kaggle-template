@@ -9,7 +9,10 @@ from hydra.core.config_store import ConfigStore
 from hydra.core.hydra_config import HydraConfig
 
 from utils.env import EnvConfig
+from utils.logger import get_logger
 from utils.timing import trace
+
+LOGGER = None
 
 
 ####################
@@ -34,6 +37,10 @@ cs.store(name="default", group="env", node=EnvConfig)
 cs.store(name="default", group="exp", node=ExpConfig)
 
 
+def log_config(cfg: Config) -> None:
+    LOGGER.info("Config: %s", cfg)
+
+
 ####################
 # 実験用コード
 ####################
@@ -48,6 +55,12 @@ def main(cfg: Config) -> None:  # Duck typing: cfgは実際にはDictConfigだ�
 
     with trace("sleep"):
         time.sleep(1.1)
+
+    global LOGGER
+    LOGGER = get_logger(__name__, output_dir)
+    LOGGER.info("Start")
+
+    log_config(cfg)
 
 
 if __name__ == "__main__":
