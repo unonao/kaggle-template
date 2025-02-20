@@ -4,47 +4,52 @@
 - Docker によるポータブルなKaggleと同一の環境
 - Hydra による実験管理
 - 実験用スクリプトファイルを major バージョンごとにフォルダごとに管理
-- 実験用スクリプトと設定を同一フォルダで局所的に管理して把握しやすくする
+- 実験用スクリプトと実験パラメータ設定を同一フォルダで局所的に管理して把握しやすくする
 
 ## Structure
 ```text
 .
-├── .jupyter-settings: jupyter-lab の設定ファイル。compose.yamlでJUPYTERLAB_SETTINGS_DIRを指定している
-├── Dockerfile
-├── Dockerfile.cpu
-├── LICENSE
-├── README.md
-├── compose.cpu.yaml
-├── compose.yaml
-├── exp
+├── experiments
 ├── input
 ├── notebook
 ├── output
+├── tools
 ├── utils
-└── yamls: データのパスなど各スクリプトに共通する設定を管理
+├── Dockerfile
+├── Dockerfile.cpu
+├── LICENSE
+├── Makefile
+├── README.md
+├── compose.cpu.yaml
+└── compose.yaml
+
 ```
 
 ## Docker による環境構築
 
 ```sh
-docker compose build
+# imageのbuild
+make build
 
 # bash に入る場合
-docker compose run --rm kaggle bash 
+make bash
 
 # jupyter lab を起動する場合
-docker compose up 
+make jupyter
+
+# CPUで起動する場合はCPU=1やCPU=True などをつける
 ```
 
 ## スクリプトの実行方法
 
 ```sh
-python experiments/sample/run.py exp=001
-python experiments/sample/run.py exp=base
+python experiments/exp000_sample/run.py
+python experiments/exp000_sample/run.py exp=001
 ```
 
 ### Hydra による Config 管理
-- 各スクリプトに共通する基本的な設定は yamls/config.yaml 内にある
+- Config は yamlとdictで定義するのではなく、dataclass を用いて定義することで、エディタの補完などの機能を使いつつタイポを防止できるようにする
+- 各スクリプトに共通する環境依存となる設定は utils/env.py の EnvConfig で定義される
 - 各スクリプトによって変わる設定は、実行スクリプトのあるフォルダ(`{major_exp_name}`)の中に `exp/{minor_exp_name}.yaml` として配置することで管理。
     - 実行時に `exp={minor_exp_name}` で上書きする
     - `{major_exp_name}` と `{minor_exp_name}` の組み合わせで実験が再現できるようにする

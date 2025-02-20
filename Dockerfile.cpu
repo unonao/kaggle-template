@@ -1,14 +1,5 @@
-FROM gcr.io/kaggle-images/python:v145
-
-RUN apt-get update  --allow-releaseinfo-change&& \
-    apt-get -y install gcc libmariadb-dev
-RUN pip install mysqlclient==2.1.0
-
-# ruff がnotebook上で設定できないのでblackとisortを入れる
-RUN python3 -m pip install --upgrade pip \
-    &&  pip install --no-cache-dir \
-    black isort \ 
-    jupyterlab_code_formatter 
+# https://github.com/Kaggle/docker-python/releases
+FROM gcr.io/kaggle-images/python:v158
 
 RUN pip install --no-cache-dir \
-    hydra-core segmentation-models-pytorch numexpr==2.8.4 
+    hydra-core

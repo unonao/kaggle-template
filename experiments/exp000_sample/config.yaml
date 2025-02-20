@@ -1,0 +1,14 @@
+defaults:
+  - _self_
+  # defaultはpythonスクリプト中で登録する
+  - exp: default 
+  - env: default 
+  # hydraで自動的にログファイルが生成されるのを防ぐ
+  - override hydra/job_logging: none
+
+hydra:
+  output_subdir: null
+  job:
+    chdir: False
+  run:
+    dir: .
