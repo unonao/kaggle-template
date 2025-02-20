@@ -6,9 +6,10 @@ services:
       - $PWD/input:/kaggle/input
       - $PWD/.cache:/root/.cache
       - $PWD:/kaggle/working
-    working_dir: /kaggle/working
     environment:
       - JUPYTERLAB_SETTINGS_DIR=/kaggle/working/.jupyter-settings # jupyterの設定(保存用)
+      - NETRC=/kaggle/working/.netrc # wandb key の保存先
+    working_dir: /kaggle/working
     ports:
       - 8889:8889
     command: jupyter lab --allow-root --ip=0.0.0.0 --port=8889 --no-browser --NotebookApp.token=''
