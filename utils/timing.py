@@ -9,6 +9,11 @@ import psutil
 
 @contextmanager
 def trace(title):
+    """
+    Examples:
+        >>> with trace("wait"):
+                time.sleep(2.0)
+    """
     t0 = time.time()
     p = psutil.Process(os.getpid())
     m0 = p.memory_info().rss / 2.0**30
