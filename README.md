@@ -27,13 +27,13 @@
 ## Docker による環境構築
 
 ```sh
-docker compose build
+make build
 
 # bash に入る場合
 docker compose run --rm kaggle bash 
 
 # jupyter lab を起動する場合
-docker compose up 
+docker compose up
 ```
 
 ## スクリプトの実行方法

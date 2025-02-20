@@ -2,9 +2,10 @@ services:
   kaggle:
     build: .
     volumes:
+      - $PWD/.jupyter:/root/.jupyter # jupyterの設定
+      - $PWD/input:/kaggle/input
+      - $PWD/.cache:/root/.cache
       - $PWD:/kaggle/working
-      - ./.jupyter:/root/.jupyter
-      - ./.cache:/root/.cache
     working_dir: /kaggle/working
     environment:
       - JUPYTERLAB_SETTINGS_DIR=/kaggle/working/.jupyter-settings # jupyterの設定(保存用)
