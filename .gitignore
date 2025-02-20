@@ -4,6 +4,7 @@
 /input
 /output
 /wandb
+/.netrc
 
 
 # Byte-compiled / optimized / DLL files
