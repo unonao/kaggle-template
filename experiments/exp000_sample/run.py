@@ -5,11 +5,11 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import hydra
-import wandb
 from hydra.core.config_store import ConfigStore
 from hydra.core.hydra_config import HydraConfig
 from omegaconf import OmegaConf
 
+import wandb
 from utils.env import EnvConfig
 from utils.logger import get_logger
 from utils.timing import trace
@@ -69,6 +69,7 @@ def main(cfg: Config) -> None:  # Duck typing: cfgは実際にはDictConfigだ�
     wandb.init(
         project=WANDB_PROJECT_NAME,
         name=exp_name,
+        notes=", ".join(HydraConfig.get().overrides.task),  # オーバーライドの内容
         config=OmegaConf.to_container(cfg.exp, resolve=True),
         mode="disabled" if cfg.exp.debug else "online",
     )
