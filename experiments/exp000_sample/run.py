@@ -1,15 +1,15 @@
 import os
 import sys
 import time
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 
 import hydra
+import wandb
 from hydra.core.config_store import ConfigStore
 from hydra.core.hydra_config import HydraConfig
 from omegaconf import OmegaConf
 
-import wandb
 from utils.env import EnvConfig
 from utils.logger import get_logger
 from utils.timing import trace
@@ -27,12 +27,13 @@ class ExpConfig:
     seed: int = 7
     learning_rate: float = 0.001
     batch_size: int = 32
+    folds: list = field(default_factory=lambda: [0, 1, 2, 3, 4])
 
 
 @dataclass
 class Config:
-    env: EnvConfig = EnvConfig()
-    exp: ExpConfig = ExpConfig()
+    env: EnvConfig = field(default_factory=EnvConfig)
+    exp: ExpConfig = field(default_factory=ExpConfig)
 
 
 # hydra用にdefaultを設定
@@ -49,7 +50,9 @@ def log_config(cfg: Config) -> None:
 
 
 @hydra.main(version_base=None, config_path=".", config_name="config")
-def main(cfg: Config) -> None:  # Duck typing: cfgは実際にはDictConfigだが、Configクラスのように扱える
+def main(
+    cfg: Config,
+) -> None:  # Duck typing: cfgは実際にはDictConfigだが、Configクラスのように扱える
     print(cfg)
 
     exp_name = f"{Path(sys.argv[0]).parent.name}/{HydraConfig.get().runtime.choices.exp}"  # e.g. 000_sample/default
