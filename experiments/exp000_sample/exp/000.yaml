@@ -2,3 +2,4 @@ defaults:
   - default@_here_ # defaultの値を設定してから上書きする
 
 seed: 0
+folds: [0]
