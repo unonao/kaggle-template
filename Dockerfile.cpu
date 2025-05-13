@@ -1,5 +1,5 @@
-# https://github.com/Kaggle/docker-python/releases
-FROM gcr.io/kaggle-images/python:v158
+# https://github.com/Kaggle/docker-python
+FROM gcr.io/kaggle-images/python:v160
 
 RUN pip install --no-cache-dir \
     hydra-core
